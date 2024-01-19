@@ -21,7 +21,6 @@ class CartRepazitory {
                throw new Error(`Error getting cart with ID ${cartId}`);
            }
     };
-
     async createCart(cartData){
             try{
                 const newCart = await this.cartRepository.save(cartData);
@@ -42,14 +41,14 @@ class CartRepazitory {
 
         }
     };
-
     async deleteCart(cartId){
         try{
             const cart = await this.getCartById(cartId);
             const deleteCart = await this.cartRepository.delete({id:cartId});
+            return cart;
         }catch (error){
             console.error(error);
-
+            throw new Error('Error deleting cart from DB');
         }
     }
 
