@@ -2,12 +2,14 @@
 import { getRepository } from 'typeorm';
 
 import { UserSchema } from '../models/user-model.js';
+import { ProductCartSchema } from '../models/productCart-model.js';
+
 
 
 class UserRepository {
 
     constructor() {
-        this.userRepository =getRepository(UserSchema)
+        this.userRepository =getRepository(ProductCartSchema)
     }
     async getAllUsers() {
        // const userRepository = getRepository(UserSchema);///kkkk

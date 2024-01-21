@@ -14,18 +14,26 @@ const ProductCartSchema = new EntitySchema({
             type: 'int',
             isDefined: true,
         },
-        // ... other product_cart columns
+        ordered: {
+            type: 'boolean',
+            default: false,
+        },
     },
     relations: {
-        cart: {
+        user: {
             type: 'many-to-one',
-            target: 'Cart',
-            joinColumn: true,
+            target: 'User',
+            joinColumn: { name: 'user_id', referencedColumnName: 'id' },
         },
         product: {
             type: 'many-to-one',
             target: 'Product',
-            joinColumn: true,
+            joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+        },
+        order: {
+            type: 'many-to-one',
+            target: 'Order',
+            joinColumn: { name: 'order_id', referencedColumnName: 'id' },
         },
     },
 });

@@ -37,52 +37,57 @@ const ProductSchema = new EntitySchema({
                 max: Max(1000000, { message: 'Price cannot be greater than 1,000,000' }),
             },
         },
-        comments:{
-            type:'varchar',
-            array:true,
-            nullable:true,
-            validate:{
-                isArray:IsArray({ message: 'Comments must be an array of strings' }),
-            },  
-        },
-        rating: {
-            type: "float",
-            validate: {
-                isDefined: IsDefined({ message: 'Rating must be defined' }),
-                isFloat: IsNumber({ message: 'Rating must be a float' }),
-                min: Min(1.0, { message: 'Rating must be at least 1.0' }),
-                max: Max(5.0, { message: 'Rating cannot be more than 5.0' }),
-            },
-        },
-        likes: {
+        count: {
             type: "int",
             validate: {
-                isDefined: IsDefined({ message: 'Likes must be defined' }),
-                isInt: IsInt({ message: 'Likes must be an integer' }),
-                isPositive: IsPositive({ message: 'Likes must be a positive integer' }),
+                isDefined: IsDefined({ message: 'Count must be defined' }),
+                isNumber: IsNumber({}, { message: 'Count must be a number' }),
+                min: Min(0, { message: 'Count cannot be negative' }),
             },
         },
-        available: {
-            type: "boolean",
-            default: true, 
-            validate: {
-                isBoolean: IsBoolean({ message: 'Available must be a boolean' }),
-            },
-        },
+        // comments:{
+        //     type:'varchar',
+        //     array:true,
+        //     nullable:true,
+        //     validate:{
+        //         isArray:IsArray({ message: 'Comments must be an array of strings' }),
+        //     },  
+        // },
+        // rating: {
+        //     type: "float",
+        //     validate: {
+        //         isDefined: IsDefined({ message: 'Rating must be defined' }),
+        //         isFloat: IsNumber({ message: 'Rating must be a float' }),
+        //         min: Min(1.0, { message: 'Rating must be at least 1.0' }),
+        //         max: Max(5.0, { message: 'Rating cannot be more than 5.0' }),
+        //     },
+        // },
+        // likes: {
+        //     type: "int",
+        //     validate: {
+        //         isDefined: IsDefined({ message: 'Likes must be defined' }),
+        //         isInt: IsInt({ message: 'Likes must be an integer' }),
+        //         isPositive: IsPositive({ message: 'Likes must be a positive integer' }),
+        //     },
+        // },
+        // available: {
+        //     type: "boolean",
+        //     default: true, 
+        //     validate: {
+        //         isBoolean: IsBoolean({ message: 'Available must be a boolean' }),
+        //     },
+        // },
     },
     relations: {
         categories: {
-            target: 'ProductCategory',
-            type: 'one-to-many',
-            inverseSide: 'product',
+            target: 'Category',
+            type: 'many-to-many',
         },
         productCarts: {
             type: 'one-to-many',
             target: 'ProductCart',
-            inverseSide: 'product',
         },
     },
-    
 });
 
 export {ProductSchema}

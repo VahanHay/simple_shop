@@ -75,19 +75,15 @@ const UserSchema = new EntitySchema({
     }
   },
   relations: {
-      cart: {
-          type: 'one-to-one',
-          target: 'Cart',
-          cascade: true,
-          joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-      },
+    cart: {
+        type: 'one-to-many',
+        target: 'ProductCart',
+    },
     orders: {
       type: 'one-to-many',
       target: 'Order',
-      mappedBy: 'user',
+    },
   },
-},
-
 })
 
 export {UserSchema};

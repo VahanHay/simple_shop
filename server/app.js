@@ -15,15 +15,17 @@ const app = express();
 // // Set the maximum number of listeners to 15
 // myEmitter.setMaxListeners(15);
 
-app.use(express.json());
-app.use(cors());
-app.use(bodyParser.json());
-app.use(helmet());
-app.use(morgan('combined'))
+export function bootstrapApplication() {
+    app.use(express.json());
+    app.use(cors());
+    app.use(bodyParser.json());
+    app.use(helmet());
+    app.use(morgan('combined'))
+    
+    app.use('/api',router);
 
-app.use('/api',router);
-
-export  { app };
+    return app;
+}
 
 // // app.js
 // /express

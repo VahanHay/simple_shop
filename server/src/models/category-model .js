@@ -24,12 +24,10 @@ const CategorySchema = new EntitySchema({
     },
     relations: {
         products: {
-            target: 'ProductCategory',
-            type: 'one-to-many',
-            inverseSide: 'category',
+            target: 'Product',
+            type: 'many-to-many',
         },
     },
-   
 });
 
 export {CategorySchema}

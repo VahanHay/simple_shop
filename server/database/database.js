@@ -5,9 +5,7 @@ import 'dotenv/config';
 import { UserSchema} from './../src/models/user-model.js';
 import { CategorySchema } from '../src/models/category-model .js';
 import { ProductSchema }  from '../src/models/product-model.js';
-import {CartSchema} from '../src/models/cart-model.js'
 import { OrderSchema } from '../src/models/order-model.js'
-import { ProductCategorySchema } from '../src/models/productCategory-model.js'
 import { ProductCartSchema } from '../src/models/productCart-model.js'
 
 const connectDatabase = async () => {
@@ -22,9 +20,7 @@ const connectDatabase = async () => {
       entities: [ UserSchema, 
                   CategorySchema,
                   ProductSchema,
-                  CartSchema,
                   OrderSchema,
-                  ProductCategorySchema,
                   ProductCartSchema
                 ],
       synchronize: true,

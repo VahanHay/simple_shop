@@ -5,11 +5,13 @@ import {UserRepository} from "./user-repazitory.js"
 
 
 class UserService {
+    constructor() {
+        this.userRepository = new UserRepository();
+    }
 
       async getAllUsers(){
           try{
-              const userRepository = new UserRepository();
-              const allUsers = await userRepository.getAllUsers();
+              const allUsers = await this.userRepository.getAllUsers();
               return allUsers;
           }catch (error){
               console.error(error);
@@ -19,8 +21,7 @@ class UserService {
       async getUserById(userId){
          try{
              console.log('User service userbrid')
-             const userRepository = new UserRepository();
-             const user =await userRepository.getUserById(userId);
+             const user =await this.userRepository.getUserById(userId);
              return user;
          }catch (error){
              console.error(error);
@@ -30,14 +31,13 @@ class UserService {
       };
       async createUser(userData){
           try{
-              const userRepository = new UserRepository();
               console.log('"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"')
               console.log({...userData})
               const {first_name, last_name, age, password, email, phoneNumber, country, address} = userData;
               if(!first_name || !last_name || !age || !password || !email || !phoneNumber || !country || !address){
                   throw new Error('Missing Data');
               }
-              const exist = await userRepository.findEmail(email);
+              const exist = await this.userRepository.findEmail(email);
               console.log(exist, 'kkkk')
               if(exist){
                   throw new Error('Email is Exist');
@@ -46,8 +46,9 @@ class UserService {
               const hashed = await bcrypt.hash(password, salt);
               userData.password = hashed;
               userData.age= +userData.age;
-              console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
-              const newUser =await userRepository.createUser(userData);
+
+              const newUser = await userRepository.createUser(userData);
+
               return newUser;
           }catch(error){
               console.error(error);
@@ -57,20 +58,16 @@ class UserService {
 
       async updateUser(userId, userData){
         try{
-            const userRepository = new UserRepository();
-            await userRepository.updateUser(userId, userData);
-            return await userRepository.getUserById(userId);
+            await this.userRepository.updateUser(userId, userData);
+            return userRepository.getUserById(userId);
         }catch (error){
             console.error(error);
-
         }
       };
 
       async deleteUser(userId){
           try{
-              const userRepository = new UserRepository();
-              //console.log('user service delete')
-              const deleteUser = await userRepository.deleteUser(userId);
+              const deleteUser = await this.userRepository.deleteUser(userId);
               return deleteUser;
           }catch(error){
               console.error(error);

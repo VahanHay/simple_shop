@@ -3,11 +3,13 @@ import {UserService} from "./user-service.js";
 
 //const userService = new UserService();
  class UserController {
+    constructor() {
+        this.userService = new UserService()
 
+    }
    async getAllUsers(req, res){
         try{
-               const userService = new UserService()
-               const allUsers = await userService.getAllUsers();
+               const allUsers = await this.userService.getAllUsers();
                res.status(200).json(allUsers);
         }catch (error){
             console.error(error);

@@ -31,6 +31,11 @@ const OrderSchema = new EntitySchema({
         user: {
             type: 'many-to-one',
             target: 'User',
+            joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+        },
+        productCart: {
+            type: 'one-to-many',
+            target: 'ProductCart',
         },
     },
 });

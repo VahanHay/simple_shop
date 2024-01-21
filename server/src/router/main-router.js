@@ -1,14 +1,19 @@
 import { Router } from "express";
 
-import { userRouter } from './../user/user-router.js';
-import { cartRouter } from "../cart/cart-router.js";
+import { assignUserRoutes } from './../user/user-router.js';
 import { categoryRouter } from "../category/category-router.js";
+import { productRouter } from "../product/product-router.js";
 
 const router = Router();
 
-router.use('/user',userRouter);
-router.use('/cart',cartRouter);
+
+
+export function assignRoutes() {
+
+    router.use('/user',assignUserRoutes());
 router.use('/category',categoryRouter);
+router.use('/product',productRouter);
+}
 
 
 export {router}
