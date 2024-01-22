@@ -13,6 +13,8 @@ export function assignUserRoutes() {
     userRouter.put('/:id',userController.updateUser);
     
     userRouter.delete('/:id',userController.deleteUser);
+
+    return userRouter;
 }
 
 // Create a new order for a user

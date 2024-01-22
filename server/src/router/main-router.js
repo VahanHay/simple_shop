@@ -6,14 +6,10 @@ import { productRouter } from "../product/product-router.js";
 
 const router = Router();
 
-
-
 export function assignRoutes() {
-
     router.use('/user',assignUserRoutes());
-router.use('/category',categoryRouter);
-router.use('/product',productRouter);
+    router.use('/category',categoryRouter);
+    router.use('/product',productRouter);
+
+    return router;
 }
-
-
-export {router}

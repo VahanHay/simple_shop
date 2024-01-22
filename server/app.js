@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from "body-parser"; 
-import {router} from './src/router/main-router.js';
+import {assignRoutes} from './src/router/main-router.js';
 import helmet from 'helmet';
 import morgan from 'morgan';
 const app = express();
@@ -21,8 +21,7 @@ export function bootstrapApplication() {
     app.use(bodyParser.json());
     app.use(helmet());
     app.use(morgan('combined'))
-    
-    app.use('/api',router);
+    app.use('/api', assignRoutes());
 
     return app;
 }
