@@ -9,17 +9,11 @@ import { ProductCartSchema } from '../models/productCart-model.js';
 class UserRepository {
 
     constructor() {
-        this.userRepository =getRepository(ProductCartSchema)
+        this.userRepository =getRepository(UserSchema)
     }
     async getAllUsers() {
-       // const userRepository = getRepository(UserSchema);///kkkk
        try{
-
-           const allUsersWithoutPassword = await this.userRepository.find({
-               //exclude: ["password"],
-               select: ["id", "first_name", "last_name", "age", "email", "address", "phoneNumber", "country"],
-               relations: ['cart'],
-           });
+           const allUsersWithoutPassword = await this.userRepository.find();
 
             return allUsersWithoutPassword
        }catch (error){
@@ -30,12 +24,11 @@ class UserRepository {
 
     async getUserById(userId){
           try{
-              console.log("server user fa2lse")
               const userWithoutPassword = await this.userRepository.findOne({
                   where: { id: userId },
                   select: ["id", "first_name", "last_name", "age", "email", "address", "phoneNumber", "country"],
                   exclude: ["password"],
-                  relations: ['cart'],
+
 
               });
 
@@ -52,6 +45,7 @@ class UserRepository {
 
     async createUser(userData){
         try{
+            console.log("User Repository creating User")
             const newUser = await this.userRepository.save(userData);
             const {password, ...newUserWithoutPassword} = newUser;
             return newUserWithoutPassword;
@@ -74,7 +68,9 @@ class UserRepository {
         // return userWithCart;
     }
     async findEmail(email){
+        console.log(email, " hayrapetyan")
         const exist =  await this.userRepository.findOne({where:{email}});
+        console.log({...exist}, " Vahan")
         return !!exist;
     };
 
@@ -93,9 +89,8 @@ class UserRepository {
 
     async deleteUser(userId){
            try{
-              // const deleteUser = await this.userRepository.delete({where:{id:userId}});
                const user  = await this.getUserById(userId);
-               const deleteUser = await this.userRepository.delete({ id: userId });
+               await this.userRepository.delete({ id: userId });
 
                const {password, ...deleteUserWithoutPassword} = user;
                return deleteUserWithoutPassword;

@@ -2,13 +2,13 @@ import { CategoryRepazitory } from "./category-repazitory.js";
 
 class CategoryService {
 
-    // constructor() {
-    //     this.categoryRepazitory = new CategoryRepazitory()
-    // }
-    async getAllCategories(){
+    constructor() {
+        this.categoryRepazitory = new CategoryRepazitory()
+    }
+    async getAll(){
         try{
-             const categoryRepazitory = new CategoryRepazitory();
-             const categorys = await categoryRepazitory.getAllCategories();
+
+             const categorys = await this.categoryRepazitory.getAll();
              return categorys;
         }catch (error){
             console.error(error);
@@ -16,13 +16,27 @@ class CategoryService {
         }
     };
 
-    async getCategoryById(categoryId){
+    async getById(id){
         try{
-
+            return this.categoryRepazitory.getById(id);
         }catch (error){
             console.error(error);
         }
+    };
+
+    async create(data){
+        try{
+            if(!data.name){
+                throw new Error('Missing Data')
+            }
+            return this.categoryRepazitory.create(data);
+        }catch (error){
+            console.error(error);
+            throw new Error('Error creating category in DB');
+        }
     }
+
+
 }
 
 export { CategoryService }

@@ -6,7 +6,7 @@ import { ProductCartSchema } from '../models/productCart-model.js';
 class ProductCartRepository {
     constructor() {
         // this.productCartRepository = {}
-        this.userRepository = getRepository(ProductCartSchema);
+        this.productCartRepository = getRepository(ProductCartSchema);
 
     }
 

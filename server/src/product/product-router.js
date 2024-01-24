@@ -1,11 +1,18 @@
 import { Router } from 'express';
 import { ProductController } from './product-controller.js';
 
-const productController = new ProductController();
-const productRouter = Router();
+export function assignProductRoutes(){
 
-productRouter.get('/',productController.getAll);
-productRouter.post('/:id/add',productController.addToCart);
-productRouter.post('/', productController.create);
+    const productController = new ProductController();
+    const productRouter = Router();
 
-export { productRouter };
+    productRouter.get('/',productController.getAll.bind(productController));
+    productRouter.get('/:id',productController.getById.bind(productController));
+   // productRouter.get('/category/:id',productController.getByCategory.bind(productController));
+    productRouter.post('/:id/add',productController.addToCart.bind(productController));
+    productRouter.post('/', productController.create.bind(productController));
+
+    return productRouter;
+}
+
+

@@ -20,7 +20,6 @@ class UserService {
     };
       async getUserById(userId){
          try{
-             console.log('User service userbrid')
              const user =await this.userRepository.getUserById(userId);
              return user;
          }catch (error){
@@ -31,23 +30,23 @@ class UserService {
       };
       async createUser(userData){
           try{
-              console.log('"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"')
-              console.log({...userData})
               const {first_name, last_name, age, password, email, phoneNumber, country, address} = userData;
+
               if(!first_name || !last_name || !age || !password || !email || !phoneNumber || !country || !address){
                   throw new Error('Missing Data');
               }
+
               const exist = await this.userRepository.findEmail(email);
-              console.log(exist, 'kkkk')
               if(exist){
                   throw new Error('Email is Exist');
               }
               const salt = await bcrypt.genSalt(6);
               const hashed = await bcrypt.hash(password, salt);
+
               userData.password = hashed;
               userData.age= +userData.age;
 
-              const newUser = await userRepository.createUser(userData);
+              const newUser = await this.userRepository.createUser(userData);
 
               return newUser;
           }catch(error){
@@ -59,7 +58,7 @@ class UserService {
       async updateUser(userId, userData){
         try{
             await this.userRepository.updateUser(userId, userData);
-            return userRepository.getUserById(userId);
+            return this.userRepository.getUserById(userId);
         }catch (error){
             console.error(error);
         }
