@@ -13,5 +13,9 @@
 - add swagger docs
 - add logger, revisit all logs and replace with appropriate log lib method (pay attention to type of logs - error | debug | info | warn) - https://github.com/winstonjs/winston
 
+- implement custom Promise
+    - expose CustomPromise constructor with same signature with Promise
+    - implement then and catch method
+
 run DB
 `docker compose up -d`
