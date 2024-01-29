@@ -68,14 +68,14 @@ class ProductService {
           }
       };
 
-    // async getByCategory(categoryId) {
-    //     try {
-    //         return await this.productRepository.getByCategory(categoryId);
-    //     } catch (error) {
-    //         console.error(error);
-    //         throw new Error('Error getting products by category');
-    //     }
-    // }
+    async getByCategory(categoryId) {
+        try {
+            return await this.productRepository.getByCategory(categoryId);
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error getting products by category');
+        }
+    }
 }
 
 export { ProductService }
