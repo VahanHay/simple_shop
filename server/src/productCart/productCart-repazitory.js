@@ -25,7 +25,10 @@ class ProductCartRepository {
 
     async create(payload){
         try{
-            return this.productCartRepository.save(payload);
+            console.log({...payload});
+            console.log('productCart repo');
+            const newProductCart = this.productCartRepository.save(payload);
+            return newProductCart;
         }catch (error) {
             console.error(error);
             throw new Error('Error creating user in DB');

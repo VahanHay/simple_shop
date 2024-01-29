@@ -82,6 +82,7 @@ const ProductSchema = new EntitySchema({
         categories: {
             target: 'Category',
             type: 'many-to-many',
+            joinTable: true,
         },
         productCarts: {
             type: 'one-to-many',

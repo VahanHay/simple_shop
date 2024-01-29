@@ -56,16 +56,16 @@ import {ProductService} from "./product-service.js";
 
    };
 
-     // async getByCategory(req, res) {
-     //     try {
-     //         const categoryId = req.params.id; // Assuming categoryId is part of the URL
-     //         const productsInCategory = await this.productService.getByCategory(categoryId);
-     //         res.status(200).json(productsInCategory);
-     //     } catch (error) {
-     //         console.error(error);
-     //         res.status(500).json({ error: 'Failed to get products by category' });
-     //     }
-     // }
+     async getByCategory(req, res) {
+         try {
+             const categoryId = req.params.id; // Assuming categoryId is part of the URL
+             const productsInCategory = await this.productService.getByCategory(categoryId);
+             res.status(200).json(productsInCategory);
+         } catch (error) {
+             console.error(error);
+             res.status(500).json({ error: 'Failed to get products by category' });
+         }
+     }
 }
 
 export { ProductController }
