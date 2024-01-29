@@ -1,6 +1,6 @@
-- fix routes based on user routes
-- test product controller endpoints
-- test create user endpoint
+- fix routes based on user routes +
+- test product controller endpoints +
+- test create user endpoint+
 - create order creation flow
     - POST { userId=string, productCartIds: string[] }
     - get productCart by productCartIds and ordered=false 

@@ -10,7 +10,7 @@ class ProductService {
         this.productCartRepository = new ProductCartRepository();
     }
 
-    async addToCart(payload) {
+      async addToCart(payload) {
         const { id, userId, quantity } = payload;
 
         if (!userId || !quantity || !id) {
@@ -23,11 +23,12 @@ class ProductService {
             throw new Error(`Only ${product.count} items available`);
         }
 
-       await this.productCartRepository.create({
+       const basket  = await this.productCartRepository.create({
         product_id: product.id,
         user_id: userId,
         quantity,
        });
+        return basket;
     }
 
       async getAll(){
@@ -42,11 +43,15 @@ class ProductService {
       async create(payload){
         const { name, description, price, count } = payload;
 
-        if (!name || !description || !price || !count) {
+        if (!name || !description || !price || !count || ( +count ) < 1) {
             throw new Error('Invalid payload.');
         }
 
         try{
+
+            payload.price = +payload.price;
+            payload.count = +payload.count;
+
             return this.productRepository.create(payload);
         }catch(error){
             console.error(error);
@@ -54,6 +59,23 @@ class ProductService {
         }
       };
 
+      async getById(Id){
+          try{
+              return this.productRepository.getById(Id);
+          }catch (error){
+              console.error(error);
+              throw new Error('Can Not Get Product');
+          }
+      };
+
+    // async getByCategory(categoryId) {
+    //     try {
+    //         return await this.productRepository.getByCategory(categoryId);
+    //     } catch (error) {
+    //         console.error(error);
+    //         throw new Error('Error getting products by category');
+    //     }
+    // }
 }
 
 export { ProductService }

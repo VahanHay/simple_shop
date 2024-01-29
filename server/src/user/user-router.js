@@ -4,15 +4,15 @@ import { UserController } from './user-controller.js';
 export function assignUserRoutes() {
     const userController = new UserController();
     const userRouter = Router();
+
+    userRouter.get('/',userController.getAllUsers.bind(userController));
+    userRouter.get('/:id',userController.getUserById.bind(userController));
     
-    userRouter.get('/',userController.getAllUsers);
-    userRouter.get('/:id',userController.getUserById);
+    userRouter.post('/', userController.createUser.bind(userController));
     
-    userRouter.post('/', userController.createUser);
+    userRouter.put('/:id',userController.updateUser.bind(userController));
     
-    userRouter.put('/:id',userController.updateUser);
-    
-    userRouter.delete('/:id',userController.deleteUser);
+    userRouter.delete('/:id',userController.deleteUser.bind(userController));
 
     return userRouter;
 }

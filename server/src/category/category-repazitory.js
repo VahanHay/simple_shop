@@ -7,19 +7,27 @@ class CategoryRepazitory {
     constructor() {
         this.categoryRepository = getRepository(CategorySchema);
     }
-    async getAllCategories(){
+    async getAll(){
          try{
-             const categorys = await this.categoryRepository.find();
-             return categorys;
+             return await this.categoryRepository.find();
+
          }catch (error){
              console.error(error);
              throw new Error('Failed to get all categories from DB');
          }
     };
 
-    async getCategoryById(categoryId){
+    async getById(id){
         try{
+            return this.categoryRepository.findOne({where:{id}})
+        }catch (error){
+            console.error(error);
+        }
+    };
 
+    async create(data){
+        try{
+            return this.categoryRepository.save(data);
         }catch (error){
             console.error(error);
         }

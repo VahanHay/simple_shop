@@ -10,6 +10,7 @@ import {UserService} from "./user-service.js";
    async getAllUsers(req, res){
         try{
                const allUsers = await this.userService.getAllUsers();
+            console.log({...allUsers})
                res.status(200).json(allUsers);
         }catch (error){
             console.error(error);
@@ -19,12 +20,8 @@ import {UserService} from "./user-service.js";
 
    async getUserById(req, res){
        try{
-           const userService = new UserService();
            const userId = parseInt(req.params.id, 10);
-           console.log(userId,' helllo');
-
-           const user = await userService.getUserById(userId);
-           console.log({...user},' helllo1');
+           const user = await this.userService.getUserById(userId);
            if(!user){
                res.status(404).json(`User Not Found`);
                return;
@@ -39,11 +36,10 @@ import {UserService} from "./user-service.js";
 
    async createUser(req, res){
        try{
-
-           const userService = new UserService();
            const userData = req.body;
            console.log({...userData})
-           const newUser = await userService.createUser(userData);
+           console.log('User Controller createUser');//ok
+           const newUser = await this.userService.createUser(userData);
            res.status(201).json(newUser)
        }catch (error){
            console.error(error);
@@ -53,20 +49,15 @@ import {UserService} from "./user-service.js";
 
    async updateUser(req, res){
        try{
-           const userService = new UserService();
            const userData = req.body;
            const userId = parseInt(req.params.id);
-           console.log('User controller updateUser');
-           console.log({...userData});
-           console.log(userId);
-           console.log('          ');
-           const existingUser = await  userService.getUserById(userId);
+           const existingUser = await  this.userService.getUserById(userId);
            if(!existingUser){
                res.status(404).json({message:'UserNot Found'});
                return;
            }
 
-           const updateUser = await userService.updateUser(userId,userData);
+           const updateUser = await this.userService.updateUser(userId,userData);
            res.status(200).json(updateUser)
 
        }catch(error){
@@ -78,15 +69,14 @@ import {UserService} from "./user-service.js";
 
    async deleteUser(req, res){
        try{
-           const userService = new UserService();
            const userId = req.params.id;
-           const existingUser = await userService.getUserById(userId);
+           const existingUser = await this.userService.getUserById(userId);
            if (!existingUser) {
                res.status(404).json({message: 'UserNot Found'});
                return;
            }
 
-           const deleteUser = await userService.deleteUser(userId);
+           const deleteUser = await this.userService.deleteUser(userId);
            res.status(202).json(deleteUser);
        }catch(error){
            console.error(error);

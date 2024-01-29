@@ -75,7 +75,7 @@ const UserSchema = new EntitySchema({
     }
   },
   relations: {
-    cart: {
+      productCart: {
         type: 'one-to-many',
         target: 'ProductCart',
     },
