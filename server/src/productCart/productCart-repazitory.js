@@ -25,14 +25,25 @@ class ProductCartRepository {
 
     async create(payload){
         try{
-            console.log({...payload});
-            console.log('productCart repo');
-            const newProductCart = this.productCartRepository.save(payload);
+            console.log(payload);
+
+            const newProductCart = await this.productCartRepository.save(this.productCartRepository.create({
+                user: payload.user_id,
+                product: payload.product_id,
+                quantity: payload.quantity,
+            }));
+
             return newProductCart;
         }catch (error) {
             console.error(error);
             throw new Error('Error creating user in DB');
         }
+    }
+
+    getByIds(productCartIds) {
+        return this.productCartRepository.find({
+            where: { id: In(productCartIds) },
+        });
     }
 }
 

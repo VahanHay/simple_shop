@@ -11,7 +11,7 @@ export function assignRoutes() {
     router.use('/user',assignUserRoutes());
     router.use('/category',assignCategoryRoutes());
     router.use('/product',assignProductRoutes());
-    router.use('/order',assignOrderRoutes)
+    router.use('/order',assignOrderRoutes())
 
     return router;
 }

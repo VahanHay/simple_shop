@@ -6,9 +6,9 @@ class OrderController{
     }
     async create(req ,res){
         try{
-           // const data = req.body;
-           // const order = await this.orderService.create(data);
-            const order = "hello"
+           const data = req.body;
+           const order = await this.orderService.create(data);
+            // const order = "hello"
             res.status(200).json(order)
         }catch (error){
             console.error(error);
